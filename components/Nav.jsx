@@ -54,9 +54,9 @@ export default function Nav() {
           </button>
         </div>
       </div>
-      <div className={`fixed inset-0 -z-10 flex flex-col justify-center gap-2 bg-paper px-8 transition-transform duration-500 lg:hidden ${open ? "translate-y-0" : "-translate-y-full"}`}>
+      <div className={`fixed inset-0 -z-10 flex flex-col justify-center gap-1.5 overflow-y-auto bg-paper px-8 py-24 transition-transform duration-500 lg:hidden ${open ? "translate-y-0" : "-translate-y-full"}`}>
         {NAV.map((id) => (
-          <a key={id} href={`#${id}`} onClick={() => { setOpen(false); replay(id); }} className="border-b border-ink/10 py-2 font-display text-4xl hover:text-terracotta">{t.nav[id]}</a>
+          <a key={id} href={`#${id}`} onClick={() => { setOpen(false); replay(id); }} className="flex-none border-b border-ink/10 py-1.5 font-display text-[28px] hover:text-terracotta sm:py-2 sm:text-4xl">{t.nav[id]}</a>
         ))}
       </div>
     </header>
