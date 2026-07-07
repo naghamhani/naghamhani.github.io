@@ -1,5 +1,13 @@
 "use client";
-export default function SectionHead({ index, kicker, meta, light = false }) {
+
+interface SectionHeadProps {
+  index: string;
+  kicker: string;
+  meta?: string;
+  light?: boolean;
+}
+
+export default function SectionHead({ index, kicker, meta, light = false }: SectionHeadProps) {
   return (
     <div className={`mb-10 border-t pt-5 lg:mb-14 ${light ? "border-paper/20" : "border-ink/15"}`}>
       <div className="flex items-baseline justify-between gap-4">

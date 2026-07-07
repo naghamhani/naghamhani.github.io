@@ -7,9 +7,10 @@ import SectionHead from "./SectionHead";
 import Reveal from "./Reveal";
 import gallery from "../data/gallery.json";
 
-const CATS = ["all", "award", "experience", "impact"];
+const CATS = ["all", "award", "experience", "impact"] as const;
+type Cat = (typeof CATS)[number];
 
-function fmtDate(d) {
+function fmtDate(d?: string) {
   if (!d) return "";
   const [y, m] = d.split("-");
   return `${new Date(+y, +m - 1).toLocaleString("en", { month: "short" })} ${y}`;
@@ -18,7 +19,7 @@ function fmtDate(d) {
 export default function Gallery() {
   const { t, lang } = useI18n();
   const { open } = useLightbox();
-  const [filter, setFilter] = useState("all");
+  const [filter, setFilter] = useState<Cat>("all");
   const [pre, em] = t.gallery.title;
   const shown = gallery
     .filter((g) => filter === "all" || g.cat === filter)

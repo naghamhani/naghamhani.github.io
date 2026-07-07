@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { useI18n } from "../i18n";
 import { credentials } from "../data";
 import { asset } from "../asset";
@@ -7,15 +7,20 @@ import { useLightbox } from "../lightbox";
 import SectionHead from "./SectionHead";
 import Reveal from "./Reveal";
 
-const CATS = ["all", "data", "award", "impact"];
+const CATS = ["all", "data", "award", "impact"] as const;
+type Cat = (typeof CATS)[number];
 
 export default function Credentials() {
   const { t, lang } = useI18n();
   const { open } = useLightbox();
-  const [filter, setFilter] = useState("all");
-  const shown = credentials
-    .filter((c) => filter === "all" || c.cat === filter)
-    .sort((a, b) => (b.sort || b.date * 100 || 0) - (a.sort || a.date * 100 || 0));
+  const [filter, setFilter] = useState<Cat>("all");
+  const shown = useMemo(
+    () =>
+      credentials
+        .filter((c) => filter === "all" || c.cat === filter)
+        .sort((a, b) => (b.sort || b.date * 100 || 0) - (a.sort || a.date * 100 || 0)),
+    [filter]
+  );
   return (
     <section id="credentials" className="mx-auto max-w-container px-5 py-20 sm:px-8 lg:px-[72px] lg:py-32">
       <SectionHead index={t.credentials.index} kicker={t.credentials.kicker} meta="88 credentials" />
@@ -28,7 +33,7 @@ export default function Credentials() {
       </div>
       <div className="grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-4">
         {shown.map((c, i) => {
-          const cover = c.cover || c.img;
+          const cover = c.cover || c.img || "";
           const items = c.set ? c.set : [{ src: c.img, cap: { en: `${c.title.en} — ${c.issuer.en}`, ar: `${c.title.ar} — ${c.issuer.ar}` } }];
           const cardCls = "group relative flex w-full flex-col overflow-hidden rounded-xl border border-ink/10 bg-paper-2 text-start transition duration-300 hover:-translate-y-1.5 hover:shadow-[0_28px_46px_-34px_rgba(42,23,38,.5)]";
           const body = (

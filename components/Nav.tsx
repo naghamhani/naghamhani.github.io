@@ -16,7 +16,7 @@ export default function Nav() {
   }, []);
 
   useEffect(() => {
-    const secs = NAV.map((id) => document.getElementById(id)).filter(Boolean);
+    const secs = NAV.map((id) => document.getElementById(id)).filter((s): s is HTMLElement => Boolean(s));
     if (!secs.length) return;
     const io = new IntersectionObserver((entries) => {
       const vis = entries.filter((e) => e.isIntersecting).sort((a, b) => a.boundingClientRect.top - b.boundingClientRect.top);
@@ -29,7 +29,7 @@ export default function Nav() {
   useEffect(() => { document.body.style.overflow = open ? "hidden" : ""; }, [open]);
 
   // Re-trigger section animations when their nav link is clicked.
-  const replay = (id) => {
+  const replay = (id: string) => {
     const evt = id === "hero" ? "hero:replay" : id === "manifesto" ? "manifesto:replay" : null;
     if (evt) setTimeout(() => window.dispatchEvent(new Event(evt)), 120);
   };
@@ -43,7 +43,7 @@ export default function Nav() {
         </a>
         <nav className="hidden items-center gap-7 text-[16px] font-medium lg:flex" aria-label="Primary">
           {NAV.map((id) => (
-            <a key={id} href={`#${id}`} onClick={() => replay(id)} className={`relative transition-colors after:absolute after:-bottom-1.5 after:start-0 after:h-[1.5px] after:bg-terracotta after:transition-all ${active === id ? "text-ink after:w-full" : "text-ink-2 after:w-0 hover:text-ink hover:after:w-full"}`}>{t.nav[id]}</a>
+            <a key={id} href={`#${id}`} onClick={() => replay(id)} className={`relative transition-colors after:absolute after:-bottom-1.5 after:start-0 after:h-[1.5px] after:bg-terracotta after:transition-all ${active === id ? "text-ink after:w-full" : "text-ink-2 after:w-0 hover:text-ink hover:after:w-full"}`}>{(t.nav as Record<string, string>)[id]}</a>
           ))}
         </nav>
         <div className="flex items-center gap-3">
@@ -56,7 +56,7 @@ export default function Nav() {
       </div>
       <div className={`fixed inset-0 -z-10 flex flex-col justify-center gap-1.5 overflow-y-auto bg-paper px-8 py-24 transition-transform duration-500 lg:hidden ${open ? "translate-y-0" : "-translate-y-full"}`}>
         {NAV.map((id) => (
-          <a key={id} href={`#${id}`} onClick={() => { setOpen(false); replay(id); }} className="flex-none border-b border-ink/10 py-1.5 font-display text-[28px] hover:text-terracotta sm:py-2 sm:text-4xl">{t.nav[id]}</a>
+          <a key={id} href={`#${id}`} onClick={() => { setOpen(false); replay(id); }} className="flex-none border-b border-ink/10 py-1.5 font-display text-[28px] hover:text-terracotta sm:py-2 sm:text-4xl">{(t.nav as Record<string, string>)[id]}</a>
         ))}
       </div>
     </header>

@@ -9,30 +9,38 @@ const LINKS = {
   resume: "/Nagham_Alhoubani_Resume_2026.pdf",
 };
 
+interface Command {
+  group: string;
+  label: string;
+  hint: string;
+  kw: string;
+  run: () => void;
+}
+
 export default function CommandPalette() {
   const { t, toggle: toggleLang, isAr } = useI18n();
   const [open, setOpen] = useState(false);
   const [q, setQ] = useState("");
   const [sel, setSel] = useState(0);
-  const inputRef = useRef(null);
+  const inputRef = useRef<HTMLInputElement>(null);
 
-  const go = (id) => {
+  const go = (id: string) => {
     document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
   };
 
-  const commands = useMemo(() => {
+  const commands: Command[] = useMemo(() => {
     const navIds = ["about", "skills", "work", "experience", "gallery", "credentials", "contact"];
-    const navCmds = navIds.map((id) => ({
+    const navCmds: Command[] = navIds.map((id) => ({
       group: isAr ? "تنقّل" : "Navigate",
-      label: (isAr ? "اذهب إلى " : "Go to ") + (t.nav[id] || id),
+      label: (isAr ? "اذهب إلى " : "Go to ") + ((t.nav as Record<string, string>)[id] || id),
       hint: `#${id}`,
-      kw: id + " " + (t.nav[id] || ""),
+      kw: id + " " + ((t.nav as Record<string, string>)[id] || ""),
       run: () => go(id),
     }));
-    const actions = [
+    const actions: Command[] = [
       { group: isAr ? "إجراءات" : "Actions", label: isAr ? "أعلى الصفحة" : "Back to top", hint: "↑", kw: "top home hero", run: () => go("top") },
     ];
-    const links = [
+    const links: Command[] = [
       { group: isAr ? "روابط" : "Links", label: isAr ? "تنزيل السيرة الذاتية" : "Download résumé", hint: "PDF", kw: "resume cv download سيرة", run: () => { window.open(LINKS.resume, "_blank"); } },
       { group: isAr ? "روابط" : "Links", label: "Email", hint: "✉", kw: "email mail contact بريد", run: () => { window.location.href = LINKS.email; } },
       { group: isAr ? "روابط" : "Links", label: "LinkedIn", hint: "↗", kw: "linkedin", run: () => window.open(LINKS.linkedin, "_blank") },
@@ -49,7 +57,7 @@ export default function CommandPalette() {
 
   // Global ⌘K / Ctrl+K listener + open-event for the nav button.
   useEffect(() => {
-    const onKey = (e) => {
+    const onKey = (e: KeyboardEvent) => {
       if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === "k") {
         e.preventDefault();
         setOpen((o) => !o);
@@ -69,9 +77,9 @@ export default function CommandPalette() {
 
   useEffect(() => { setSel(0); }, [q]);
 
-  const choose = (c) => { if (!c) return; setOpen(false); setTimeout(() => c.run(), 60); };
+  const choose = (c?: Command) => { if (!c) return; setOpen(false); setTimeout(() => c.run(), 60); };
 
-  const onListKey = (e) => {
+  const onListKey = (e: React.KeyboardEvent) => {
     if (e.key === "ArrowDown") { e.preventDefault(); setSel((s) => Math.min(s + 1, filtered.length - 1)); }
     if (e.key === "ArrowUp") { e.preventDefault(); setSel((s) => Math.max(s - 1, 0)); }
     if (e.key === "Enter") { e.preventDefault(); choose(filtered[sel]); }
@@ -79,9 +87,9 @@ export default function CommandPalette() {
 
   if (!open) return null;
 
-  let lastGroup = null;
+  let lastGroup: string | null = null;
   return (
-    <div id="cmdk-overlay" onMouseDown={(e) => { if (e.target.id === "cmdk-overlay") setOpen(false); }}>
+    <div id="cmdk-overlay" onMouseDown={(e) => { if ((e.target as HTMLElement).id === "cmdk-overlay") setOpen(false); }}>
       <div
         role="dialog"
         aria-modal="true"

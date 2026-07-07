@@ -1,10 +1,19 @@
 "use client";
-import { createContext, useContext, useEffect, useState, useCallback } from "react";
+import { createContext, useContext, useEffect, useState, useCallback, type ReactNode } from "react";
 
-const ThemeCtx = createContext(null);
+type Theme = "light" | "dark";
 
-export function ThemeProvider({ children }) {
-  const [theme, setTheme] = useState("light");
+interface ThemeContextValue {
+  theme: Theme;
+  toggle: () => void;
+  set: (t: Theme) => void;
+  isDark: boolean;
+}
+
+const ThemeCtx = createContext<ThemeContextValue | null>(null);
+
+export function ThemeProvider({ children }: { children: ReactNode }) {
+  const [theme, setTheme] = useState<Theme>("light");
 
   // Sync initial state from the class the pre-paint script already applied.
   useEffect(() => {
@@ -17,7 +26,7 @@ export function ThemeProvider({ children }) {
   }, [theme]);
 
   const toggle = useCallback(() => setTheme((t) => (t === "dark" ? "light" : "dark")), []);
-  const set = useCallback((t) => setTheme(t), []);
+  const set = useCallback((t: Theme) => setTheme(t), []);
 
   return (
     <ThemeCtx.Provider value={{ theme, toggle, set, isDark: theme === "dark" }}>
@@ -26,4 +35,8 @@ export function ThemeProvider({ children }) {
   );
 }
 
-export const useTheme = () => useContext(ThemeCtx);
+export function useTheme(): ThemeContextValue {
+  const ctx = useContext(ThemeCtx);
+  if (!ctx) throw new Error("useTheme must be used within ThemeProvider");
+  return ctx;
+}

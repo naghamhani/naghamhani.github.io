@@ -7,7 +7,7 @@ import gallery from "../data/gallery.json";
 
 const strip = gallery.filter((g) => ["award", "experience"].includes(g.cat)).slice(0, 14);
 
-function fmtDate(d) {
+function fmtDate(d: string) {
   if (!d) return "";
   const [y, m] = d.split("-");
   const month = new Date(+y, +m - 1).toLocaleString("en", { month: "short" });

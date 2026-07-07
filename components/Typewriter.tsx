@@ -9,19 +9,32 @@ if (typeof window !== "undefined") {
   window.addEventListener("preloader:done", () => { preloaderDone = true; }, { once: true });
 }
 
+interface TypewriterPart {
+  text: string;
+  className?: string;
+}
+
+interface TypewriterProps {
+  parts: TypewriterPart[];
+  speed?: number;
+  startDelay?: number;
+  className?: string;
+  replayEvent?: string;
+}
+
 /**
  * Retro typewriter for the hero title.
  * `parts` is an array of { text, className } segments; the whole thing is
  * typed out character-by-character while the accent styling is preserved.
  */
-export default function Typewriter({ parts, speed = 32, startDelay = 250, className = "", replayEvent }) {
+export default function Typewriter({ parts, speed = 32, startDelay = 250, className = "", replayEvent }: TypewriterProps) {
   const full = parts.map((p) => p.text).join("");
   const total = full.length;
   const [count, setCount] = useState(0);
   const [done, setDone] = useState(false);
   const [replay, setReplay] = useState(0);
   const key = `${full}|${replay}`; // restart typing on text change or a replay signal
-  const timer = useRef(null);
+  const timer = useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
 
   // Allow an external trigger (e.g. clicking the "Intro" nav link) to re-type.
   useEffect(() => {
@@ -38,7 +51,7 @@ export default function Typewriter({ parts, speed = 32, startDelay = 250, classN
     // Always begin from an empty title, then start typing only once the
     // preloader signals it has finished (with a fallback in case we missed it).
     setCount(0); setDone(false);
-    let start;
+    let start: ReturnType<typeof setTimeout> | undefined;
     const begin = () => {
       let i = 0;
       start = setTimeout(function tick() {
@@ -55,7 +68,7 @@ export default function Typewriter({ parts, speed = 32, startDelay = 250, classN
     let begun = false;
     const onReady = () => { if (begun) return; begun = true; begin(); };
 
-    let fallback;
+    let fallback: ReturnType<typeof setTimeout> | undefined;
     if (preloaderDone) {
       onReady(); // preloader already finished — start right away
     } else {

@@ -1,6 +1,6 @@
 "use client";
 import { useI18n } from "../i18n";
-export default function LangToggle({ className = "" }) {
+export default function LangToggle({ className = "" }: { className?: string }) {
   const { t, toggle, isAr } = useI18n();
   return (
     <button onClick={toggle} aria-label={isAr ? "Switch to English" : "التبديل إلى العربية"}

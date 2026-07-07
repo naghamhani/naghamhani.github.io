@@ -11,7 +11,7 @@ const ALL = Array.from(new Set([...TECH, ...skills.map((s) => s.replace("*", "")
 const rowA = ALL.filter((_, i) => i % 2 === 0);
 const rowB = ALL.filter((_, i) => i % 2 === 1);
 
-function Row({ items, reverse }) {
+function Row({ items, reverse }: { items: string[]; reverse: boolean }) {
   return (
     <div className="marquee py-2">
       <div className={`marquee-track gap-3 ${reverse ? "rev" : ""}`}>
@@ -29,16 +29,19 @@ function Row({ items, reverse }) {
 }
 
 // Stylized CLI output typed out once the terminal scrolls into view.
+type LineKind = "cmd" | "dim" | "ok" | "out";
+interface Line { txt: string; kind: LineKind; sub?: string; }
+
 function Terminal() {
   const { t } = useI18n();
-  const ref = useRef(null);
+  const ref = useRef<HTMLDivElement>(null);
   const [started, setStarted] = useState(false);
   const [n, setN] = useState(0);
 
-  const lines = [
+  const lines: Line[] = [
     { txt: t.skills.prompt, kind: "cmd" },
     { txt: "› booting profile … ok", kind: "dim" },
-    ...pillars.map((p) => ({ txt: `[${p.n}] ${p.h}`, kind: "ok", sub: p.p })),
+    ...pillars.map((p) => ({ txt: `[${p.n}] ${p.h}`, kind: "ok" as const, sub: p.p })),
     { txt: "", kind: "dim" },
     { txt: `core      ${skills.slice(0, 8).join("  ")}`, kind: "out" },
     { txt: `applied   ${skills.slice(8).join("  ")}`, kind: "out" },
@@ -66,7 +69,7 @@ function Terminal() {
     return () => clearTimeout(id);
   }, [started, n]);
 
-  const color = { cmd: "text-ochre", ok: "text-paper", out: "text-paper/80", dim: "text-paper/45" };
+  const color: Record<LineKind, string> = { cmd: "text-ochre", ok: "text-paper", out: "text-paper/80", dim: "text-paper/45" };
 
   return (
     <div ref={ref} className="overflow-hidden rounded-2xl border border-ink/30 bg-ink shadow-[0_40px_70px_-44px_rgba(0,0,0,.7)]">

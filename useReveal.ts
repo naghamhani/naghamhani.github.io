@@ -1,7 +1,7 @@
 "use client";
 import { useEffect, useRef, useState, type RefObject } from "react";
 
-export function useReveal(threshold = 0.12): [RefObject<HTMLElement>, boolean] {
+export function useReveal(threshold = 0.12): [RefObject<HTMLElement | null>, boolean] {
   const ref = useRef<HTMLElement>(null);
   const [shown, setShown] = useState(false);
   useEffect(() => {

@@ -8,7 +8,7 @@ const WORDS_PER_SEC = 3.5;
 export default function Manifesto() {
   const { t } = useI18n();
   const [pre, em, post] = t.manifesto.line;
-  const ref = useRef(null);
+  const ref = useRef<HTMLElement>(null);
   const rafRef = useRef(0);
   const [lit, setLit] = useState(0);
 
@@ -25,7 +25,7 @@ export default function Manifesto() {
     if (rafRef.current) cancelAnimationFrame(rafRef.current);
     let start = 0;
     setLit(0);
-    const tick = (now) => {
+    const tick = (now: number) => {
       if (!start) start = now;
       const value = ((now - start) / 1000) * WORDS_PER_SEC;
       setLit(value);

@@ -1,16 +1,17 @@
 "use client";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { useI18n } from "../i18n";
 import { writings } from "../data";
 import { asset } from "../asset";
 import SectionHead from "./SectionHead";
 import Reveal from "./Reveal";
+import type { Writing as WritingItem } from "../types";
 
-function ReadModal({ item, onClose }) {
+function ReadModal({ item, onClose }: { item: WritingItem | null; onClose: () => void }) {
   const { t, lang } = useI18n();
   useEffect(() => {
     document.body.style.overflow = "hidden";
-    const onKey = (e) => { if (e.key === "Escape") onClose(); };
+    const onKey = (e: KeyboardEvent) => { if (e.key === "Escape") onClose(); };
     window.addEventListener("keydown", onKey);
     return () => { document.body.style.overflow = ""; window.removeEventListener("keydown", onKey); };
   }, [onClose]);
@@ -27,7 +28,7 @@ function ReadModal({ item, onClose }) {
           </a>
         </header>
         <div className="flex flex-col gap-4 text-[15.5px] leading-[1.75] text-ink-2">
-          {(item.body || []).map((p, i) => <p key={i}>{p}</p>)}
+          {(item.body || []).map((p: string, i: number) => <p key={i}>{p}</p>)}
         </div>
       </article>
     </div>
@@ -36,8 +37,11 @@ function ReadModal({ item, onClose }) {
 
 export default function Writing() {
   const { t, lang } = useI18n();
-  const [reading, setReading] = useState(null);
-  const shown = [...writings].sort((a, b) => (b.sort || b.date * 100 || 0) - (a.sort || a.date * 100 || 0));
+  const [reading, setReading] = useState<WritingItem | null>(null);
+  const shown = useMemo(
+    () => [...writings].sort((a, b) => (b.sort || b.date * 100 || 0) - (a.sort || a.date * 100 || 0)),
+    []
+  );
   return (
     <section id="writing" className="mx-auto max-w-container px-5 py-20 sm:px-8 lg:px-[72px] lg:py-32">
       <SectionHead index={t.writing.index} kicker={t.writing.kicker} meta={`${writings.length} pieces`} />

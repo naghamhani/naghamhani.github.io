@@ -40,7 +40,15 @@ function Slashes() {
   );
 }
 
-function Entry({ item, accent }) {
+interface ChronoEntry {
+  h: string;
+  org: string;
+  date: string;
+  p?: string;
+  chips?: string[];
+}
+
+function Entry({ item, accent }: { item: ChronoEntry; accent: boolean }) {
   return (
     <Reveal>
       <div className="text-center">
@@ -57,9 +65,9 @@ function Entry({ item, accent }) {
         </h3>
         <p className="mt-2 font-mono text-[12.5px] uppercase tracking-[.08em] text-ink-3">{item.org}</p>
         {item.p && <p className="mx-auto mt-4 max-w-[58ch] text-[15px] text-ink-2">{item.p}</p>}
-        {item.chips?.length > 0 && (
+        {item.chips && item.chips.length > 0 && (
           <ul className="mt-5 flex flex-wrap justify-center gap-2">
-            {item.chips.map((c, i) => (
+            {item.chips.map((c: string, i: number) => (
               <li key={i} className="rounded-full border border-ink/15 bg-paper-2 px-3 py-1 font-mono text-[11.5px] text-ink-2">{c}</li>
             ))}
           </ul>

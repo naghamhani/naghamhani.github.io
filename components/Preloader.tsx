@@ -17,8 +17,8 @@ export default function Preloader() {
       return;
     }
     const t0 = performance.now();
-    let raf;
-    const step = (now) => {
+    let raf = 0;
+    const step = (now: number) => {
       const p = Math.min((now - t0) / DURATION, 1);
       const eased = 1 - Math.pow(1 - p, 2);
       setPct(Math.round(eased * 100));
