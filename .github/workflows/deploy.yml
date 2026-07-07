@@ -19,9 +19,10 @@ jobs:
   build:
     runs-on: ubuntu-latest
     env:
-      # This is the naghamhani.github.io user-site repo — it's served at the
-      # domain root, so no basePath is needed (unlike a project-page repo).
-      NEXT_PUBLIC_BASE_PATH: ""
+      # The site lives under the /portfolio-website/ sub-path of the
+      # naghamhani.github.io user site, so all asset/link URLs are prefixed
+      # with this basePath and the export is nested under a matching folder.
+      NEXT_PUBLIC_BASE_PATH: "/portfolio-website"
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -38,8 +39,26 @@ jobs:
       - name: Build static export
         run: npm run build
 
-      - name: Disable Jekyll processing
-        run: touch out/.nojekyll
+      - name: Nest export under /portfolio-website/ sub-path
+        # The export references assets at /portfolio-website/..., so the files
+        # must physically live under that folder at the served root. Wrap the
+        # whole build in a portfolio-website/ directory and add a root redirect
+        # so the bare domain forwards to the sub-path instead of 404ing.
+        run: |
+          shopt -s dotglob
+          mkdir -p site/portfolio-website
+          mv out/* site/portfolio-website/
+          rm -rf out && mv site out
+          touch out/.nojekyll
+          cat > out/index.html <<'HTML'
+          <!doctype html><html lang="en"><head><meta charset="utf-8">
+          <meta name="viewport" content="width=device-width, initial-scale=1">
+          <link rel="canonical" href="/portfolio-website/">
+          <meta http-equiv="refresh" content="0; url=/portfolio-website/">
+          <title>Redirecting…</title>
+          <script>window.location.replace("/portfolio-website/" + window.location.search + window.location.hash);</script>
+          </head><body><p>Redirecting to <a href="/portfolio-website/">the portfolio</a>…</p></body></html>
+          HTML
 
       - name: Setup Pages
         uses: actions/configure-pages@v5

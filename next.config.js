@@ -1,7 +1,8 @@
 /** @type {import('next').NextConfig} */
-// basePath is supplied at build time via NEXT_PUBLIC_BASE_PATH. This repo is
-// naghamhani.github.io (a GitHub Pages user site), served at the domain root,
-// so it's empty in CI too — kept configurable in case that ever changes.
+// basePath is supplied at build time via NEXT_PUBLIC_BASE_PATH. The site lives
+// under the /portfolio-website/ sub-path (CI sets NEXT_PUBLIC_BASE_PATH to
+// "/portfolio-website"). It defaults to empty so `next dev` still serves at
+// localhost root during local development.
 const basePath = process.env.NEXT_PUBLIC_BASE_PATH || "";
 
 const nextConfig = {

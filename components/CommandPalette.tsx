@@ -1,12 +1,13 @@
 "use client";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { useI18n } from "../i18n";
+import { asset } from "../asset";
 
 const LINKS = {
   email: "mailto:naghamhani20@gmail.com",
   linkedin: "https://www.linkedin.com/in/naghamalhoubani/",
   github: "https://github.com/naghamalhoubani",
-  resume: "/Nagham_Alhoubani_Resume_2026.pdf",
+  resume: asset("/Nagham_Alhoubani_Resume_2026.pdf"),
 };
 
 interface Command {

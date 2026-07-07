@@ -2,12 +2,13 @@ import "./globals.css";
 import type { Metadata, Viewport } from "next";
 import type { ReactNode } from "react";
 import Providers from "../components/Providers";
+import { asset } from "../asset";
 
 export const metadata: Metadata = {
   title: "Nagham Alhoubani — Data Scientist & AI Engineer",
   description:
     "Nagham Alhoubani — Data Scientist & AI Engineer building evidence-based AI for women's health and social impact. Three-time national competition winner, 9XAI Fellow, Amman, Jordan.",
-  icons: { icon: "/favicon.svg" },
+  icons: { icon: asset("/favicon.svg") },
 };
 
 export const viewport: Viewport = {
