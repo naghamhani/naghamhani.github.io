@@ -1,18 +1,20 @@
 import "./globals.css";
+import type { Metadata, Viewport } from "next";
+import type { ReactNode } from "react";
 import Providers from "../components/Providers";
 
-export const metadata = {
+export const metadata: Metadata = {
   title: "Nagham Alhoubani — Data Scientist & AI Engineer",
   description:
     "Nagham Alhoubani — Data Scientist & AI Engineer building evidence-based AI for women's health and social impact. Three-time national competition winner, 9XAI Fellow, Amman, Jordan.",
   icons: { icon: "/favicon.svg" },
 };
 
-export const viewport = {
+export const viewport: Viewport = {
   themeColor: "#C7295E",
 };
 
-export default function RootLayout({ children }) {
+export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
