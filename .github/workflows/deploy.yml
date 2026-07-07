@@ -19,8 +19,9 @@ jobs:
   build:
     runs-on: ubuntu-latest
     env:
-      # Project site lives under /portfolio-website on GitHub Pages.
-      NEXT_PUBLIC_BASE_PATH: /portfolio-website
+      # This is the naghamhani.github.io user-site repo — it's served at the
+      # domain root, so no basePath is needed (unlike a project-page repo).
+      NEXT_PUBLIC_BASE_PATH: ""
     steps:
       - name: Checkout
         uses: actions/checkout@v4
