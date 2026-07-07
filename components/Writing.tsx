@@ -7,6 +7,48 @@ import SectionHead from "./SectionHead";
 import Reveal from "./Reveal";
 import type { Writing as WritingItem } from "../types";
 
+const URL_RE = /(https?:\/\/[^\s]+)/g;
+const isUrl = (s: string) => /^https?:\/\//.test(s);
+
+// Turn bare URLs (e.g. in the references) into clickable links.
+function linkify(text: string) {
+  return text.split(URL_RE).map((part, i) =>
+    isUrl(part) ? (
+      <a key={i} href={part} target="_blank" rel="noopener noreferrer" className="break-words text-terracotta underline underline-offset-2 hover:text-terracotta-dk">{part}</a>
+    ) : (
+      <span key={i}>{part}</span>
+    )
+  );
+}
+
+// Render the essay body, preserving the original structure: "## " marks a
+// section heading (bigger/bolder), "- " marks a list item with a bold lead-in
+// label before its colon, everything else is a paragraph.
+function EssayBody({ blocks }: { blocks: string[] }) {
+  return (
+    <div className="flex flex-col gap-4 text-[15.5px] leading-[1.75] text-ink-2">
+      {blocks.map((raw, i) => {
+        if (raw.startsWith("## ")) {
+          return <h4 key={i} className="mt-5 first:mt-0 font-display text-[clamp(20px,2.2vw,27px)] font-bold leading-[1.2] tracking-[-.01em] text-ink">{raw.slice(3)}</h4>;
+        }
+        if (raw.startsWith("- ")) {
+          const rest = raw.slice(2);
+          const c = rest.indexOf(": ");
+          const label = c > -1 ? rest.slice(0, c) : null;
+          const desc = c > -1 ? rest.slice(c + 2) : rest;
+          return (
+            <p key={i} className="flex gap-2.5">
+              <span aria-hidden className="mt-[3px] flex-none font-bold text-terracotta">—</span>
+              <span>{label && <strong className="font-semibold text-ink">{label}: </strong>}{linkify(desc)}</span>
+            </p>
+          );
+        }
+        return <p key={i}>{linkify(raw)}</p>;
+      })}
+    </div>
+  );
+}
+
 function ReadModal({ item, onClose }: { item: WritingItem | null; onClose: () => void }) {
   const { t, lang } = useI18n();
   useEffect(() => {
@@ -23,7 +65,7 @@ function ReadModal({ item, onClose }: { item: WritingItem | null; onClose: () =>
   return (
     <div className="fixed inset-0 z-[100] flex items-start justify-center overflow-y-auto bg-[rgba(26,12,23,.93)] p-[4vw] backdrop-blur-md" onClick={onClose}>
       <button onClick={onClose} aria-label={t.ui.close} className="fixed top-5 end-6 z-10 grid h-12 w-12 place-items-center rounded-full text-3xl text-white transition hover:bg-white/10">×</button>
-      <article className="relative mx-auto my-[4vh] flex max-w-[70ch] flex-col gap-5 rounded-2xl bg-paper p-8 shadow-2xl sm:p-12" onClick={(e) => e.stopPropagation()}>
+      <article className="relative mx-auto my-[4vh] flex w-full max-w-[900px] flex-col gap-5 rounded-2xl bg-paper p-8 shadow-2xl sm:p-12" onClick={(e) => e.stopPropagation()}>
         <header className="flex flex-col gap-2 border-b border-ink/10 pb-5">
           <h3 className="font-display text-[clamp(24px,3.2vw,36px)] font-bold tracking-[-.02em] text-ink">{item.title[lang]}</h3>
           <p className="text-[14px] text-ink-2">{item.blurb[lang]}</p>
@@ -31,9 +73,7 @@ function ReadModal({ item, onClose }: { item: WritingItem | null; onClose: () =>
             ↓ {t.writing.download} (.{item.doc})
           </a>
         </header>
-        <div className="flex flex-col gap-4 text-[15.5px] leading-[1.75] text-ink-2">
-          {(item.body || []).map((p: string, i: number) => <p key={i}>{p}</p>)}
-        </div>
+        <EssayBody blocks={item.body || []} />
       </article>
     </div>
   );
