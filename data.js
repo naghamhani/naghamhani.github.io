@@ -97,6 +97,8 @@ export const credentials = [
     ...["04","05","06","07","08","09","10","11","12","13","14","15","16"].map((n)=>({ src:`certs/unwomen/${n}.jpg`, cap:{en:`Module ${n}`,ar:`الوحدة ${n}`} })) ] },
   { date: 2020, sort: 202001, cat: "impact", badge: 4, cover: "certs/school/01.jpg", title: { en: "School Certificates", ar: "شهادات مدرسية" }, issuer: { en: "Pre-university · 4 certificates", ar: "ما قبل الجامعة · ٤ شهادات" }, set: [
     ...["01","02","03","04"].map((n)=>({ src:`certs/school/${n}.jpg`, cap:{en:"School certificate",ar:"شهادة مدرسية"} })) ] },
+  { date: 2025, sort: 202506, cat: "award", doc: "pdf", href: "certs/TOEFL_Score_Report_3145188.pdf", title: { en: "TOEFL Score Report", ar: "نتيجة اختبار التوفل" }, issuer: { en: "ETS TOEFL iBT · 2025", ar: "ETS TOEFL iBT · ٢٠٢٥" } },
+  { date: 2023, sort: 202301, cat: "impact", doc: "docx", href: "writings/feminism.docx", title: { en: "On Feminism", ar: "عن النسوية" }, issuer: { en: "Personal essay · 2023", ar: "مقالة شخصية · ٢٠٢٣" } },
 ];
 
 export const TECH = ["Python","R","SQL","pandas","NumPy","scikit-learn","Power BI","Tableau","Hadoop","Docker","Java","C / C++","Jupyter","ggplot2","Git","Excel","LLM concepts","Neural Networks"];
