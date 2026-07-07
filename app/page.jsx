@@ -12,6 +12,7 @@ import Work from "../components/Work.jsx";
 import Chronology from "../components/Chronology.jsx";
 import Gallery from "../components/Gallery.jsx";
 import Credentials from "../components/Credentials.jsx";
+import Writing from "../components/Writing.jsx";
 import Contact from "../components/Contact.jsx";
 import Footer from "../components/Footer.jsx";
 
@@ -51,6 +52,8 @@ export default function Page() {
         <Gallery />
         <Hatch />
         <Credentials />
+        <Hatch />
+        <Writing />
         {/* 8 · Contact (04) */}
         <Contact />
       </main>

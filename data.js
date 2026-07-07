@@ -1,5 +1,5 @@
 // All copy is bilingual: { en, ar }. Images live in /public/img and /public/certs.
-export const NAV = ["hero", "manifesto", "about", "skills", "work", "experience", "gallery", "credentials", "contact"];
+export const NAV = ["hero", "manifesto", "about", "skills", "work", "experience", "gallery", "credentials", "writing", "contact"];
 
 export const timeline = [
   { date: { en: "Oct 2021", ar: "أكتوبر ٢٠٢١" }, img: "img/me-heforshe-workshop.jpg",
@@ -98,7 +98,10 @@ export const credentials = [
   { date: 2020, sort: 202001, cat: "impact", badge: 4, cover: "certs/school/01.jpg", title: { en: "School Certificates", ar: "شهادات مدرسية" }, issuer: { en: "Pre-university · 4 certificates", ar: "ما قبل الجامعة · ٤ شهادات" }, set: [
     ...["01","02","03","04"].map((n)=>({ src:`certs/school/${n}.jpg`, cap:{en:"School certificate",ar:"شهادة مدرسية"} })) ] },
   { date: 2025, sort: 202506, cat: "award", doc: "pdf", href: "certs/TOEFL_Score_Report_3145188.pdf", title: { en: "TOEFL Score Report", ar: "نتيجة اختبار التوفل" }, issuer: { en: "ETS TOEFL iBT · 2025", ar: "ETS TOEFL iBT · ٢٠٢٥" } },
-  { date: 2023, sort: 202301, cat: "impact", doc: "docx", href: "writings/feminism.docx", title: { en: "On Feminism", ar: "عن النسوية" }, issuer: { en: "Personal essay · 2023", ar: "مقالة شخصية · ٢٠٢٣" } },
+];
+
+export const writings = [
+  { date: 2023, sort: 202301, doc: "docx", href: "writings/feminism.docx", title: { en: "On Feminism", ar: "عن النسوية" }, blurb: { en: "A personal essay reflecting on feminism.", ar: "مقالة شخصية تتأمل في النسوية." } },
 ];
 
 export const TECH = ["Python","R","SQL","pandas","NumPy","scikit-learn","Power BI","Tableau","Hadoop","Docker","Java","C / C++","Jupyter","ggplot2","Git","Excel","LLM concepts","Neural Networks"];

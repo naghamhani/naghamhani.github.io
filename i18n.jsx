@@ -4,7 +4,7 @@ import { createContext, useContext, useEffect, useState, useCallback } from "rea
 export const STR = {
   en: {
     dir: "ltr",
-    nav: { hero: "Intro", manifesto: "Manifesto", about: "About", skills: "Skills", focus: "Focus", experience: "Experience", work: "Work", gallery: "Gallery", credentials: "Credentials", contact: "Contact", cta: "Let’s talk" },
+    nav: { hero: "Intro", manifesto: "Manifesto", about: "About", skills: "Skills", focus: "Focus", experience: "Experience", work: "Work", gallery: "Gallery", credentials: "Credentials", writing: "Writing", contact: "Contact", cta: "Let’s talk" },
     langName: "العربية",
     hero: {
       eyebrow: "Data scientist · AI engineer · 9XAI Fellow · Amman, Jordan",
@@ -50,14 +50,15 @@ export const STR = {
     experience: { kicker: "The journey", index: "03", title: ["From first-year rep to ", "three-time national winner."], intro: "The roles, the wins, and the rooms I talked my way into, one deliberate step at a time." },
     work: { kicker: "Selected work", index: "02", title: ["Projects where the data did something ", "real."], featuredKicker: "Big Data · Machine Learning · Women’s Health", featuredTitle: "Predicting Postpartum Depression in SWANA Women", featuredBadge: "Flagship · Research", featuredBody: "My capstone pointed big-data pipelines and machine-learning models at a question most systems stay quiet on: predicting postpartum depression in women across the SWANA region, where reliable data and timely screening barely exist. The goal was simple: give clinicians and families an early, evidence-based signal where there’d otherwise be silence." },
     gallery: { kicker: "In the field", index: "✦", title: ["Years of showing up, ", "in pictures."], intro: "Competitions, fellowships, leadership, community: the teams, stages and small wins behind the résumé. Tap any photo to open it.", filters: { all: "All", award: "Awards", experience: "Experience", impact: "Impact" } },
-    credentials: { kicker: "Credentials", index: "✦", title: "The receipts.", intro: "87 certifications and recognitions, spanning data science, healthcare AI, AI ethics, human rights and language. Cards with a number open the full series. Tap any card to take a closer look.", filters: { all: "All", data: "Data & AI", award: "Awards", impact: "Impact" } },
+    credentials: { kicker: "Credentials", index: "✦", title: "The receipts.", intro: "88 certifications and recognitions, spanning data science, healthcare AI, AI ethics, human rights and language. Cards with a number open the full series. Tap any card to take a closer look.", filters: { all: "All", data: "Data & AI", award: "Awards", impact: "Impact" } },
+    writing: { kicker: "Writing", index: "✦", title: "Words, outside the code.", intro: "Essays and personal writing — where I think out loud about the things that don’t fit in a notebook cell.", readDownload: "Read / Download" },
     contact: { kicker: "Get in touch", index: "04", title: ["Let’s build something ", "people actually need."], lead: "I’m open to roles and collaborations in data science, healthcare AI, applied AI, and AI ethics, especially anywhere technology meets human wellbeing and someone’s been left out of the picture. If that sounds like your work, say hi.", email: "Email me", linkedin: "LinkedIn", github: "GitHub", loc: "Based in Amman, Jordan · Working in English & Arabic" },
     footer: { tag: "Data scientist · AI engineer · 9XAI Fellow", credit: "Built by Nagham, on purpose." },
     ui: { close: "Close", prev: "Previous", next: "Next", viewAll: "view all", playVideo: "Play video" },
   },
   ar: {
     dir: "rtl",
-    nav: { hero: "المقدّمة", manifesto: "الرؤية", about: "نبذة", skills: "الأدوات", focus: "تركيزي", experience: "المسيرة", work: "أعمالي", gallery: "معرض", credentials: "الشهادات", contact: "تواصل", cta: "لنتحدّث" },
+    nav: { hero: "المقدّمة", manifesto: "الرؤية", about: "نبذة", skills: "الأدوات", focus: "تركيزي", experience: "المسيرة", work: "أعمالي", gallery: "معرض", credentials: "الشهادات", writing: "كتاباتي", contact: "تواصل", cta: "لنتحدّث" },
     langName: "English",
     hero: {
       eyebrow: "عالِمة بيانات · مهندسة ذكاء اصطناعي · زميلة 9XAI — عمّان، الأردن",
@@ -103,7 +104,8 @@ export const STR = {
     experience: { kicker: "المسيرة", index: "٠٣", title: ["من ممثلة السنة الأولى إلى ", "فائزة وطنية ثلاث مرّات."], intro: "نظرة زمنية على الأدوار والإنجازات والقاعات التي شققتُ طريقي إليها — خطوةً مدروسةً تلو الأخرى." },
     work: { kicker: "أعمال مختارة", index: "٠٢", title: ["مشاريع فعلت فيها البيانات شيئًا ", "حقيقيًا."], featuredKicker: "بيانات ضخمة · تعلّم آلة · صحة المرأة", featuredTitle: "التنبؤ باكتئاب ما بعد الولادة لدى نساء سوانا", featuredBadge: "المشروع الرئيسي · بحث", featuredBody: "طبّق مشروع تخرّجي خطوط معالجة البيانات الضخمة ونماذج تعلّم الآلة للتنبؤ باكتئاب ما بعد الولادة لدى النساء في منطقة سوانا — وهنّ فئة تَندُر لها البيانات الموثوقة والفحص المبكر. الهدف: منح الأطباء والأسر إشارةً مبكرة قائمة على الأدلّة حيث يصمت النظام القائم." },
     gallery: { kicker: "في الميدان", index: "✦", title: ["مسيرة، في ", "لحظات."], intro: "سنوات من المسابقات والزمالات والقيادة والمجتمع — الفرق والمنصّات والمحطات خلف السيرة الذاتية. انقري أي صورة لتكبيرها.", filters: { all: "الكل", award: "جوائز", experience: "خبرات", impact: "أثر" } },
-    credentials: { kicker: "الشهادات", index: "✦", title: "الإثباتات.", intro: "٨٧ شهادة وتكريمًا، من علم البيانات والذكاء الاصطناعي إلى حقوق الإنسان واللغة. البطاقات التي تحمل رقمًا تُفتح لعرض كل شهادات السلسلة. انقري أي بطاقة لعرضها.", filters: { all: "الكل", data: "بيانات وذكاء", award: "جوائز", impact: "أثر" } },
+    credentials: { kicker: "الشهادات", index: "✦", title: "الإثباتات.", intro: "٨٨ شهادة وتكريمًا، من علم البيانات والذكاء الاصطناعي إلى حقوق الإنسان واللغة. البطاقات التي تحمل رقمًا تُفتح لعرض كل شهادات السلسلة. انقري أي بطاقة لعرضها.", filters: { all: "الكل", data: "بيانات وذكاء", award: "جوائز", impact: "أثر" } },
+    writing: { kicker: "كتاباتي", index: "✦", title: "كلمات، خارج الكود.", intro: "مقالات وكتابات شخصية أفكّر فيها بصوتٍ عالٍ في أمور لا تتّسع لها خلية برمجية.", readDownload: "قراءة / تحميل" },
     contact: { kicker: "تواصل", index: "٠٤", title: ["لنبنِ معًا شيئًا ", "ذا قيمة."], lead: "أرحّب بالفرص والتعاون في علم البيانات والذكاء الاصطناعي التطبيقي والتقنية لأجل الخير — خصوصًا عند تقاطع التقنية مع رفاه الإنسان. إن كان هذا أنت، فلنتحدّث.", email: "راسليني", linkedin: "لينكدإن", github: "غيت‑هَب", loc: "مقيمة في عمّان، الأردن · أعمل بالعربية والإنجليزية" },
     footer: { tag: "عالِمة بيانات · مهندسة ذكاء اصطناعي · زميلة 9XAI", credit: "بُني بنيّة وإصرار." },
     ui: { close: "إغلاق", prev: "السابق", next: "التالي", viewAll: "عرض الكل", playVideo: "تشغيل الفيديو" },
