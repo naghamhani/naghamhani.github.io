@@ -6,7 +6,7 @@ import { asset } from "../asset";
 const LINKS = {
   email: "mailto:naghamhani20@gmail.com",
   linkedin: "https://www.linkedin.com/in/naghamalhoubani/",
-  github: "https://github.com/naghamalhoubani",
+  github: "https://github.com/naghamhani",
   resume: asset("/Nagham_Alhoubani_Resume_2026.pdf"),
 };
 

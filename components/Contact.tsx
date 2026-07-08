@@ -17,7 +17,7 @@ export default function Contact() {
         <Reveal delay={0.16} className="mt-10 flex flex-wrap justify-center gap-3.5">
           <a href="mailto:naghamhani20@gmail.com" className="rounded-full bg-terracotta px-8 py-4 font-semibold text-white transition hover:-translate-y-0.5 hover:bg-terracotta-dk">{t.contact.email}</a>
           <a href="https://www.linkedin.com/in/naghamalhoubani/" target="_blank" rel="noopener" className="rounded-full border-[1.5px] border-paper px-8 py-4 font-semibold text-paper transition hover:bg-paper hover:text-ink-bg">{t.contact.linkedin}</a>
-          <a href="https://github.com/naghamalhoubani" target="_blank" rel="noopener" className="rounded-full border-[1.5px] border-paper px-8 py-4 font-semibold text-paper transition hover:bg-paper hover:text-ink-bg">{t.contact.github}</a>
+          <a href="https://github.com/naghamhani" target="_blank" rel="noopener" className="rounded-full border-[1.5px] border-paper px-8 py-4 font-semibold text-paper transition hover:bg-paper hover:text-ink-bg">{t.contact.github}</a>
           <a href={asset("/Nagham_Alhoubani_Resume_2026.pdf")} download className="rounded-full border-[1.5px] border-ochre px-8 py-4 font-semibold text-ochre transition hover:bg-ochre hover:text-ink-bg">{isAr ? "السيرة الذاتية ↓" : "Résumé ↓"}</a>
         </Reveal>
         <Reveal as="p" delay={0.24} className="mt-9 font-mono text-[12.5px] text-paper/50">{t.contact.loc}</Reveal>
